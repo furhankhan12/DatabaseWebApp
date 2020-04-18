@@ -72,7 +72,7 @@ class Plan(models.Model):
         unique_together = (('pid', 'wid'),)
 
 class Cardio(models.Model):
-    eid = models.ForeignKey('Exercise',  on_delete = models.CASCADE, db_column='eid', primary_key=True)
+    eid = models.OneToOneField(Exercise, on_delete = models.CASCADE, db_column='eid', primary_key=True)
     duration = models.IntegerField()
     distance = models.DecimalField(max_digits=4, decimal_places=1)
     calories_burned = models.IntegerField(blank=True, null=True)
@@ -83,7 +83,7 @@ class Cardio(models.Model):
 
 
 class Hiit(models.Model):
-    eid = models.IntegerField(primary_key=True)
+    eid = models.OneToOneField(Exercise,  on_delete = models.CASCADE, db_column='eid', primary_key=True)
     distance = models.DecimalField(max_digits=4, decimal_places=1, blank=True, null=True)
     name = models.CharField(max_length=16)
     calories_burned = models.IntegerField()
@@ -95,7 +95,7 @@ class Hiit(models.Model):
         db_table = 'hiit'
 
 class Strength(models.Model):
-    eid = models.ForeignKey(Exercise, on_delete = models.CASCADE, db_column='eid', primary_key=True)
+    eid = models.OneToOneField(Exercise, on_delete = models.CASCADE, db_column='eid', primary_key=True)
     weight = models.IntegerField()
     category = models.CharField(max_length=24)
     sets = models.IntegerField()
