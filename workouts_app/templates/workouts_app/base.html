@@ -1,0 +1,29 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Track My Workouts | {% block pagename %}{% endblock %}</title>
+
+		<!--Bootstrap inclusion-->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
+		<link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.png'%}" />
+
+		<!--Fonts-->
+		<link href="https://fonts.googleapis.com/css?family=Assistant|Special+Elite" rel="stylesheet">
+	</head>
+	<body style="font-family: 'Assistant', sans-serif;">
+		{% block pagecontent %}{% endblock%}
+		<script>
+			$(document).ready(function() {
+				$('select').select2();
+			});
+		</script>
+	</body>
+<html>
