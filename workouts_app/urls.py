@@ -3,9 +3,11 @@ from django.conf.urls import url
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib import admin
 from . import views
 
 urlpatterns = [
+    path('admin/', admin.site.urls),
     path('', views.index, name='index'),
     path('home/', views.HomePageView.as_view(), name='home'),
     path('profile/', views.MyProfileView.as_view(), name='profile'),
