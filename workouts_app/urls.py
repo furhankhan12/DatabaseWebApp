@@ -1,6 +1,7 @@
 from django.urls import path
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout, login
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
@@ -8,6 +9,9 @@ from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('logout/', logout, {'next_page': settings.LOGOUT_REDIRECT_URL}, name='logout'),
+    path('oauth/', views.OAuthCheckView.as_view(), name='oauth_check'),
+    url('', include('social_django.urls')),
     path('', views.index, name='index'),
     path('home/', views.HomePageView.as_view(), name='home'),
     path('profile/', views.MyProfileView.as_view(), name='profile'),

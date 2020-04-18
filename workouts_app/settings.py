@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'workouts_app',
+    'social_django',
 ]
 
 MIDDLEWARE = [
@@ -137,6 +138,18 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Google OAuth 
+AUTHENTICATION_BACKENDS = [
+    'social_core.backends.google.GoogleOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '254200812383-f1ul4540b7o5h6ida5bm8rkj4njql7oj.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'EzQzSMlrz0zmwyceI73SfJPz'
+
+LOGIN_URL = '/auth/login/google-oauth2/'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/

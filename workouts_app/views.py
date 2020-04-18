@@ -26,3 +26,6 @@ class AddCardioExerciseView(TemplateView):
 
 class AddHIITExerciseView(TemplateView):
     template_name = 'workouts_app/add-hiit-exercise.html'
+
+class OAuthCheckView(TemplateView):
+    template_name = 'workouts_app/oauth-check.html'
