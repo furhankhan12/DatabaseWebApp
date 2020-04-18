@@ -1,0 +1,48 @@
+{% extends 'workouts_app/base.html' %}
+
+{% load static %}
+
+{% block pagename %}Home{% endblock %}
+
+{% block pagecontent %}
+
+<div>
+	<div class="container-fluid" style="background-color:#a020f0;">
+		<div class="container">
+			<ul class="nav justify-content-end">
+				<li class="nav-item">
+					<h4 style = "color:#ffa500" >Logout</h4>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="jumbotron jumbotron-fluid" style="height: 1%; background-color:#f4f7f6; color: #0000ff;">
+		<div class="container">
+			<h1 class="display-3" style="font-family: 'Special Elite', monospace;">Record a New Workout: </h1>
+			<hr class="my-4">
+			<p class="lead"></p>
+		</div>
+
+    <body>
+    		</div>
+    		<div>
+    			<section>
+    				<p>Workout Name: </p>
+    				<p>Workout Date: </p>
+    				<p>Workout Comment(s): </p>
+            <p>Exercises in this Workout: <p>
+    				<button type="submit" class="btn btn-warning">Add a Strength Exercise</button>
+            <button type="submit" class="btn btn-info">Add a Cardio Exercise</button>
+            <button type="submit" class="btn btn-danger">Add a HIIT Exercise</button>
+                <button type="submit" class="btn btn-primary">Add generic exercise</button>
+    			</section>
+    		</div>
+    	</div>
+    </body>
+
+
+
+
+
+  {%endblock%}

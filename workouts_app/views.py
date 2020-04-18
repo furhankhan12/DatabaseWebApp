@@ -8,3 +8,21 @@ def index(request):
 
 class HomePageView(TemplateView):
     template_name = 'workouts_app/home.html'
+
+class MyProfileView(TemplateView):
+    template_name = 'workouts_app/profile.html'
+
+class NewWorkoutView(TemplateView):
+    template_name = 'workouts_app/new-workout.html'
+
+class AddExerciseView(TemplateView):
+    template_name = 'workouts_app/add-exercise.html'
+
+class AddStrengthExerciseView(TemplateView):
+    template_name = 'workouts_app/add-strength-exercise.html'
+
+class AddCardioExerciseView(TemplateView):
+    template_name = 'workouts_app/add-cardio-exercise.html'
+
+class AddHIITExerciseView(TemplateView):
+    template_name = 'workouts_app/add-hiit-exercise.html'
