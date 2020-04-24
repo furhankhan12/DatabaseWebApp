@@ -1,0 +1,11 @@
+{% extends 'hoosworkinout/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <h3>Start New Workout</h3>
+  <form method="post" novalidate class="bootstrap4">
+    {% csrf_token %}
+    {{ form | crispy }}
+    <button type="submit" class="btn btn-success">Save New Workout</button>
+  </form>
+{% endblock %}
