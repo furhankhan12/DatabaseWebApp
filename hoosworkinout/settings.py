@@ -144,7 +144,7 @@ AUTHENTICATION_BACKENDS = [
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '254200812383-f1ul4540b7o5h6ida5bm8rkj4njql7oj.apps.googleusercontent.com'
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'EzQzSMlrz0zmwyceI73SfJPz'
-
+'''
 SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.social_details',
 
@@ -188,9 +188,9 @@ SOCIAL_AUTH_PIPELINE = (
     # Update the user record with any changed info from the auth service.
     'social_core.pipeline.user.user_details',
 )
-
+'''
 LOGIN_URL = 'login/google-oauth2/'
-LOGIN_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = 'authenticate'
 LOGOUT_REDIRECT_URL = 'signin'
 
 # Internationalization

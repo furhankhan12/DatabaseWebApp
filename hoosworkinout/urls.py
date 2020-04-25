@@ -28,7 +28,8 @@ urlpatterns = [
     url('', include('social_django.urls', namespace='social')),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('', views.SignIn.as_view(), name='signin'),
-
+    path('authenticate/', views.authenticate, name='authenticate'),
+    path(r'load_profile_page/<str:uname>', views.load_profile_page, name='load_profile_page'),
     # User views
     path('home/', views.HomePageView.as_view(), name='home'),
     path('profile/', views.CreateUserView.as_view(), name='profile'),
