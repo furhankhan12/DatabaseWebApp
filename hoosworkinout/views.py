@@ -24,9 +24,11 @@ class SignIn(TemplateView):
 
 def load_profile_page(request, uname):
     current_user = User.objects.filter(username = uname)
+    current_workouts = Workout.objects.filter(username=uname)
     allUsers = User.objects.all()
     context = {
         "current_user" : current_user,
+        "current_workouts" : current_workouts,
         "allProfiles" : allUsers,
         }
     return render(request, 'hoosworkinout/home.html', context)
