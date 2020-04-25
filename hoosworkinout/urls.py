@@ -29,7 +29,8 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('', views.SignIn.as_view(), name='signin'),
     path('home/', views.HomePageView.as_view(), name='home'),
-    path('profile/<str:username>/', views.MyProfileView.as_view(), name='profile'),
+    path(r'load_profile_page/<str:uname>', views.load_profile_page, name='load_profile_page'),
+    path(r'profile/<str:username>/', views.MyProfileView.as_view(), name='profile'),
     path('edit-profile/', views.CreateUserView.as_view(), name='edit-profile'),
     path('new-workout/', views.CreateWorkoutView.as_view(), name='new-workout'),
 ]

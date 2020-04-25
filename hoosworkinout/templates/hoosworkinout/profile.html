@@ -1,47 +1,6 @@
 {% extends 'hoosworkinout/base.html' %}
 
-{% load static %}
+{% block content %}
 
-{% block pagename %}Home{% endblock %}
-
-{% block pagecontent %}
-
-<div>
-	<div class="container-fluid" style="background-color:#a020f0;">
-		<div class="container">
-			<ul class="nav justify-content-end">
-				<li class="nav-item">
-					<h4 style = "color:#ffa500" >Logout</h4>
-				</li>
-			</ul>
-		</div>
-	</div>
-
-	<div class="jumbotron jumbotron-fluid" style="height: 1%; background-color:#f4f7f6; color: #0000ff;">
-		<div class="container">
-			<h1 class="display-3" style="font-family: 'Special Elite', monospace;">My HomePage</h1>
-			<hr class="my-4">
-			<p class="lead"></p>
-      <button type="submit" class="btn btn-success">Create a Fitness Plan</button> <button type="submit" class="btn btn-warning">Record a workout</button>
-		</div>
-	</div>
-
-  <div class="jumbotron jumbotron-fluid" style="height: 1%; width: 100%; background-color:#f4f7f6; color: #000000;">
-    <div class="container">
-      <h2 style="font-family: 'Special Elite', monospace;">My Plans: </h2>
-      <hr class="my-4">
-      <p class="lead"></p>
-
-    </div>
-  </div>
-
-  <div class="jumbotron jumbotron-fluid" style="height: 1%; width: 100%; background-color:#f4f7f6; color: #000000;">
-    <div class="container">
-      <h2 style="font-family: 'Special Elite', monospace;">My Recent Workouts: </h2>
-      <hr class="my-4">
-      <p class="lead"></p>
-    </div>
-  </div>
-
-
+	This is {{request.user.username}}'s profile page
 {% endblock %}

@@ -17,6 +17,15 @@ class HomePageView(TemplateView):
 class MyProfileView(TemplateView):
     template_name = 'hoosworkinout/profile.html'
 
+def load_profile_page(request, uname):
+        current_user = User.objects.filter(username = uname)
+        allUsers = User.objects.all()
+        context = {
+            "current_user" : current_user,
+            "allProfiles" : allUsers,
+            }
+        return render(request, 'hoosworkinout/profile.html', context)
+
 class CreateUserView(CreateView):
     model = User
     fields = ('username', 'first_name', 'middle_name', 'last_name', 'phone', 'email', 'birthday', 'body_weight', 'best_lift')
@@ -35,10 +44,29 @@ class SignIn(TemplateView):
     template_name = 'hoosworkinout/signin.html'
 
 def authenticate(request):
+ #Check to see if this is a new user
+    #If it is, create a new user model and save it to the database
+
     get_email = request.user.email
     at_symbol_index = get_email.find('@')
     username = get_email[:at_symbol_index]
-    return redirect('/profile/'+username)
+
+    initialized = False
+    all_users = User.objects.all()
+
+    for user in all_users:
+        if user.username == username:
+            initialized = True
+    if initialized == False:
+        new_user = User(username, 'first_name', 'middle_name', 'last_name', 'phone', 'email', '2000-01-01', 0.0, 0)
+        new_user.save()
+
+    return redirect('/load_profile_page/'+username)
+
+
+def logout_user(request):
+    logout(request)
+    return redirect('/oauth/')
 
 def logout_user(request):
     logout(request)
