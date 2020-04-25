@@ -61,6 +61,8 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
@@ -143,8 +145,52 @@ AUTHENTICATION_BACKENDS = [
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '254200812383-f1ul4540b7o5h6ida5bm8rkj4njql7oj.apps.googleusercontent.com'
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'EzQzSMlrz0zmwyceI73SfJPz'
 
-LOGIN_URL = '/auth/login/google-oauth2/'
-LOGIN_REDIRECT_URL = 'authenticate'
+SOCIAL_AUTH_PIPELINE = (
+    'social_core.pipeline.social_auth.social_details',
+
+    # Get the social uid from whichever service we're authing thru. The uid is
+    # the unique identifier of the given user in the provider.
+    'social_core.pipeline.social_auth.social_uid',
+
+    # Verifies that the current auth process is valid within the current
+    # project, this is where emails and domains whitelists are applied (if
+    # defined).
+    'social_core.pipeline.social_auth.auth_allowed',
+
+    # Checks if the current social-account is already associated in the site.
+    'social_core.pipeline.social_auth.social_user',
+
+    # Make up a username for this person, appends a random string at the end if
+    # there's any collision.
+    'social_core.pipeline.user.get_username',
+
+    # Send a validation email to the user to verify its email address.
+    # Disabled by default.
+    # 'social_core.pipeline.mail.mail_validation',
+
+    # Associates the current social details with another user account with
+    # a similar email address. Disabled by default.
+    # 'social_core.pipeline.social_auth.associate_by_email',
+
+    # Create a user account if we haven't found one yet.
+    'social_core.pipeline.user.create_user',
+
+    # Add custom pipeline here
+    'hoosworkinout.utils.print_response',
+
+    # Create the record that associates the social account with the user.
+    'social_core.pipeline.social_auth.associate_user',
+
+    # Populate the extra_data field in the social record with the values
+    # specified by settings (and the default ones like access_token, etc).
+    'social_core.pipeline.social_auth.load_extra_data',
+
+    # Update the user record with any changed info from the auth service.
+    'social_core.pipeline.user.user_details',
+)
+
+LOGIN_URL = 'login/google-oauth2/'
+LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'signin'
 
 # Internationalization
