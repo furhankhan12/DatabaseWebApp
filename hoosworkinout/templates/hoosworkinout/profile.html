@@ -2,5 +2,8 @@
 
 {% block content %}
 
-	This is {{request.user.username}}'s profile page
+{%for cur_user in current_user%}
+This is {{cur_user.username}}'s profile
+{%endfor%}
+
 {% endblock %}
