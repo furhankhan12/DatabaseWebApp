@@ -1,9 +1,9 @@
 import datetime
 from django import template
+from django.contrib.auth import views as auth_views
 
 register = template.Library()
 
 @register.simple_tag
 def showUser():
-    current_user = request.user
-    return 'hi'
+    return request.user.get_full_name()
