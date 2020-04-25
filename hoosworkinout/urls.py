@@ -16,7 +16,7 @@ Including another URLconf
 from django.urls import path
 from django.conf.urls import url, include
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import logout, login
+from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
@@ -24,20 +24,12 @@ from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('accounts/', include('django.contrib.auth.urls')),
-    # path('logout/', logout, {'next_page': settings.LOGOUT_REDIRECT_URL}, name='logout'),
+    url('', include('social_django.urls', namespace='social')),
     path('authenticate/', views.authenticate, name='authenticate'),
-    path('logout/', views.logout_user, name='logout'),
-    path('oauth/', views.OAuthCheckView.as_view(), name='oauth_check'),
-    url('', include('social_django.urls')),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('', views.SignIn.as_view(), name='signin'),
     path('home/', views.HomePageView.as_view(), name='home'),
     path('profile/<str:username>/', views.MyProfileView.as_view(), name='profile'),
-
     path('edit-profile/', views.CreateUserView.as_view(), name='edit-profile'),
     path('new-workout/', views.CreateWorkoutView.as_view(), name='new-workout'),
-    # path('add-strength-exercise/<int:wid>/', views.AddStrengthExerciseView.as_view(), name='add-strength-exercise'),
-    # path('add-cardio-exercise/<int:wid>/', views.AddCardioExerciseView.as_view(), name='add-cardio-exercise'),
-    # path('add-hiit-exercise/<int:wid>/', views.AddHIITExerciseView.as_view(), name='add-hiit-exercise'),
-    path('add-exercise/', views.AddExerciseView.as_view(), name='add-exercise'),
 ]

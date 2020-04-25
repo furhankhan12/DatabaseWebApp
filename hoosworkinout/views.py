@@ -42,4 +42,4 @@ def authenticate(request):
 
 def logout_user(request):
     logout(request)
-    return redirect('/oauth/')
+    return redirect('/signin/')
