@@ -24,12 +24,13 @@ from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('logout/', logout, {'next_page': settings.LOGOUT_REDIRECT_URL}, name='logout'),
+    path('authenticate/', views.authenticate, name='authenticate'),
+    path('logout/', views.logout_user, name='logout'),
     path('oauth/', views.OAuthCheckView.as_view(), name='oauth_check'),
     url('', include('social_django.urls')),
     path('', views.SignIn.as_view(), name='signin'),
     path('home/', views.HomePageView.as_view(), name='home'),
-    path('profile/', views.MyProfileView.as_view(), name='profile'),
+    path('profile/<str:username>/', views.MyProfileView.as_view(), name='profile'),
 
     path('edit-profile/', views.CreateUserView.as_view(), name='edit-profile'),
     path('new-workout/', views.CreateWorkoutView.as_view(), name='new-workout'),

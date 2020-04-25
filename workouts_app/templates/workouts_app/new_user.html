@@ -1,0 +1,25 @@
+{% extends 'workouts_app/base.html'%}
+
+{% load crispy_forms_tags %}
+
+{% block pagename %}New User{% endblock %}
+{% block pagecontent %}
+<div>
+	<div class="jumbotron jumbotron-fluid" style="height: 1%; background-color:#f4f7f6; color: #e24e42;">
+		<div class="container">
+			<h1 class="display-4" style="color: #e24e42; font-family: 'Major Mono Display', monospace;">New User</h1>
+			<hr class="my-4">
+			<p class="lead">It looks like this is your first time, mind giving us some more information?</p>
+		</div>
+	</div>
+	<div class="container" style="padding-bottom: 50px; width: 70%;">
+			<form method="post">
+				{% csrf_token %} {{ form|crispy }}
+				<center>
+					<button type="submit" class="btn btn-primary" style="background-color: #e24e42; border-color:#c12417;">Sign in</button>
+				</center>
+			</form>
+
+	</div>
+</div>
+{% endblock %}
