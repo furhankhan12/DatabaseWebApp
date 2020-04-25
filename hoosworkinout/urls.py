@@ -24,6 +24,7 @@ from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('accounts/', include('django.contrib.auth.urls')),
     path('logout/', logout, {'next_page': settings.LOGOUT_REDIRECT_URL}, name='logout'),
     path('oauth/', views.OAuthCheckView.as_view(), name='oauth_check'),
     url('', include('social_django.urls')),
@@ -36,5 +37,5 @@ urlpatterns = [
     # path('add-strength-exercise/<int:wid>/', views.AddStrengthExerciseView.as_view(), name='add-strength-exercise'),
     # path('add-cardio-exercise/<int:wid>/', views.AddCardioExerciseView.as_view(), name='add-cardio-exercise'),
     # path('add-hiit-exercise/<int:wid>/', views.AddHIITExerciseView.as_view(), name='add-hiit-exercise'),
-    path('add-exercise/<int:wid>/', views.AddExerciseView.as_view(), name='add-exercise'),
+    path('add-exercise/', views.AddExerciseView.as_view(), name='add-exercise'),
 ]
