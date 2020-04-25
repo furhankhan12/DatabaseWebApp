@@ -16,6 +16,8 @@ class CreateUserView(CreateView):
 class CreateWorkoutView(CreateView):
     model = Workout
     fields = ('username', 'comment', 'name', 'date')
+    def get_success_url(self):
+        return reverse('home')
 
 class SignIn(TemplateView):
     template_name = 'hoosworkinout/signin.html'
