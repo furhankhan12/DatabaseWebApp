@@ -8,18 +8,20 @@
   <title>Hoos Workin Out</title>
   </head>
 
+
   <body>
-  </div>
     {% if user.is_authenticated %}
       {% include 'hoosworkinout/navbar.html' %}
     {% endif %}
+    <div class="jumbotron">
+      <h1 class="display-4">Welcome, {{ user.get_full_name }}</h1>
+      <p class="lead">Let's get started!</p>
+      <hr class="my-4">
+      <a class="btn btn-primary btn-lg" href="{% url 'new-workout' %}" role="button">Start a new workout</a>
+    </div>  
     <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-8">
           {% block content %}
           {% endblock %}
-        </div>
-      </div>
     </div>
   </body>
 </html>

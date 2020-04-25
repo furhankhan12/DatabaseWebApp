@@ -3,8 +3,9 @@ from django.views.generic import CreateView, TemplateView
 from .models import Workout, User
 from django.contrib.auth import logout
 from django.shortcuts import render, redirect
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-class HomePageView(TemplateView):
+class HomePageView(LoginRequiredMixin, TemplateView):
     template_name = 'hoosworkinout/home.html'
 
 class ProfileView(TemplateView):
@@ -35,8 +36,6 @@ def load_profile_page(request, uname):
         }
     return render(request, 'hoosworkinout/home.html', context)
 
-
-
 def authenticate(request):
 #Check to see if this is a new user
 #If it is, create a new user model and save it to the database
@@ -55,12 +54,3 @@ def authenticate(request):
         new_user.save()
 
     return redirect('/load_profile_page/'+username)
-
-
-def logout_user(request):
-    logout(request)
-    return redirect('/oauth/')
-
-def logout_user(request):
-    logout(request)
-    return redirect('/signin/')

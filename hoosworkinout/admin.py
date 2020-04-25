@@ -2,7 +2,6 @@ from django.contrib import admin
 from .models import User, Workout, Location, WorkedOutAt, Exercise, Plan, Cardio, Hiit, Strength, Reps
 # Register your models here.
 
-admin.site.register(User)
 admin.site.register(Workout)
 admin.site.register(Location)
 admin.site.register(WorkedOutAt)

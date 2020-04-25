@@ -6,14 +6,10 @@
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
+from django.contrib.auth.models import User
 
-class User(models.Model):
-    username = models.CharField(primary_key=True, max_length=16)
-    first_name = models.CharField(max_length=16)
-    middle_name = models.CharField(max_length=16, blank=True, null=True)
-    last_name = models.CharField(max_length=50)
-    phone = models.CharField(max_length=16)
-    email = models.CharField(max_length=16)
+class athlete(models.Model):
+    athlete = models.OneToOneField(User, on_delete=models.CASCADE)
     birthday = models.DateField()
     body_weight = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
     best_lift = models.IntegerField(blank=True, null=True)
@@ -33,7 +29,7 @@ class Workout(models.Model):
 
 class Location(models.Model):
     lid = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=16)
+    name = models.CharField(max_length=50)
     address = models.CharField(max_length=50)
     phone = models.CharField(max_length=16, blank=True, null=True)
 
@@ -44,15 +40,15 @@ class Location(models.Model):
 class WorkedOutAt(models.Model):
     id = models.AutoField(primary_key=True)   
     username = models.ForeignKey(User, on_delete = models.CASCADE, db_column='username')
-    wid = models.ForeignKey('Workout', on_delete = models.CASCADE, db_column='wid')
+    wid = models.ForeignKey(Workout, on_delete = models.CASCADE, db_column='wid')
     lid = models.ForeignKey(Location, on_delete = models.CASCADE, db_column='lid')
 
     class Meta:
         db_table = 'worked_out_at'
 
 class Exercise(models.Model):
-    username = models.ForeignKey('User',  on_delete = models.CASCADE, db_column='username')
-    wid = models.ForeignKey('Workout',  on_delete = models.CASCADE, db_column='wid')
+    username = models.ForeignKey(User,  on_delete = models.CASCADE, db_column='username')
+    wid = models.ForeignKey(Workout,  on_delete = models.CASCADE, db_column='wid')
     eid = models.AutoField(primary_key=True)
     name = models.CharField(max_length=16)
     comment = models.CharField(max_length=100, blank=True, null=True)
@@ -61,10 +57,10 @@ class Exercise(models.Model):
         db_table = 'exercise'
 
 class Plan(models.Model):
-    username = models.ForeignKey('User', on_delete = models.CASCADE, db_column='username')
-    wid = models.ForeignKey('Workout',  on_delete = models.CASCADE, db_column='wid')
+    username = models.ForeignKey(User, on_delete = models.CASCADE, db_column='username')
+    wid = models.ForeignKey(Workout,  on_delete = models.CASCADE, db_column='wid')
     pid = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=16)
+    name = models.CharField(max_length=50)
     description = models.CharField(max_length=100)
 
     class Meta:
@@ -83,7 +79,7 @@ class Cardio(models.Model):
 
 
 class Hiit(models.Model):
-    eid = models.OneToOneField(Exercise,  on_delete = models.CASCADE, db_column='eid', primary_key=True)
+    eid = models.OneToOneField(Exercise, on_delete = models.CASCADE, db_column='eid', primary_key=True)
     distance = models.DecimalField(max_digits=4, decimal_places=1, blank=True, null=True)
     name = models.CharField(max_length=16)
     calories_burned = models.IntegerField()
