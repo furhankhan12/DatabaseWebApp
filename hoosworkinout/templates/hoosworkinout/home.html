@@ -8,4 +8,17 @@
     <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
     <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
   </div>
+
+
+  <div class="jumbotron jumbotron-fluid" style="height: 1%; background-color:#f4f7f6; color: #e24e42;">
+    <div class="container">
+      <hr class="my-4">
+      <p class="lead">My Workouts</p>
+    </div>
+
+
+  {%for workout in current_workouts%}
+  {{workout.name}}
+
+  {%endfor%}
 {% endblock %}
