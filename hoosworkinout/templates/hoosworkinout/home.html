@@ -22,8 +22,13 @@
 {% for workout in object_list %}
   {%if request.user.profile.user_id == workout.user_id%}
     <li>{{ workout.name }}</li>
-    <i>{{workout.comment}}</i><br><br>
-    {%endif%}
+    <li><i>{{workout.comment}}</i></li>
+      {% for plan in plans %}
+        {%if workout.pid.pid == plan.pid %}
+          <li><b>Part of Plan: {{plan.name}}</b></li> 
+          {%endif%}
+      {% endfor %}
+    {%endif%} <br>
 {% empty %}
     <li>No workouts yet - - - What are you waiting for? Get started now!</li>
 
