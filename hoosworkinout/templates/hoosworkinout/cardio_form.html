@@ -2,14 +2,18 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<div class="card">
-  <h5 class="card-header">Add Info for your Cardio Exercise</h5>
-  <div class="card-body">
-    <form method="post">
-      {% csrf_token %}
-      {{ form | crispy}}
-      <button class="btn btn-primary" type="submit">Save</button>
-    </form>
+<div style="display: flex; justify-content: center;">
+  <div class="card w-50">
+    <div class="card-header">
+		  Cardio Info
+		</div>
+    <div class="card-body">
+      <form method="post">
+        {% csrf_token %}
+        {{ form | crispy }}
+        <button class="btn btn-primary" type="submit">Save</button>
+      </form>
+    </div>
   </div>
 </div>
 {% endblock %}
