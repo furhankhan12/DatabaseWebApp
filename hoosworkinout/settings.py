@@ -25,7 +25,7 @@ SECRET_KEY = 'i!@eo_gip_v_-0=&lzf&dxb*8245e1f^la^k-7=nn$up^w&p1e'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1','databases-project-272416.ue.r.appspot.com']
 
 
 # Application definition
@@ -96,7 +96,7 @@ if os.getenv('GAE_APPLICATION', None):
             'HOST': '/cloudsql/databases-project-272416:us-east1:databases-project',
             'USER': 'root',
             'PASSWORD': 'password',
-            'NAME': 'databases-project',
+            'NAME': 'DB',
         }
     }
 else:
@@ -211,4 +211,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = 'static'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

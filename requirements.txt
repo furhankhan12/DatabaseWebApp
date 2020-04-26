@@ -1,2 +1,6 @@
 Django==3.0.5
 PyMySQL==0.9.3
+gunicorn==20.0.4
+social-auth-app-django==3.1.0
+django-import-export==2.0.2
+django-crispy-forms==1.9.0
