@@ -36,6 +36,8 @@ class CreateWorkoutView(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         return reverse('home')
 
+
+#Generic exercise view - not really used
 class CreateExerciseView(CreateView):
     model = Exercise
     fields = ('wid', 'comment', 'name')
@@ -47,6 +49,23 @@ class CreateExerciseView(CreateView):
         candidate.save()
         return redirect(self.get_success_url())
 
+'''
+Each exercise form has TWO methods: One that creates the actual exercise model,
+and a helper method that fills in the specific fields for that exercise (cardio,
+strength, or hiit. This is because you can't really edit two models in the same
+CreateView, so the first one creates the exercise model and then bounces you
+to the second one to create the cardio, strenght, or hiit model.
+
+The get_form() overrride allows you to filter the dropdowns for wid and eid in
+those forms. Below, it is used to only show the workouts and exercises associated with
+the username of the currently logged user.
+
+The form_valid() override allows to automatically save the workout or exercise to
+the currently logged user. This eliminates the need to select yourself from the
+dropdown and improves security by making sure you can't select other users.
+
+
+'''
 class CreateCardioExerciseView(CreateView):
     model = Exercise
     fields = ('wid', 'comment', 'name')
