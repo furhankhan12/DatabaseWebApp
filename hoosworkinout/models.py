@@ -28,12 +28,29 @@ class Profile(models.Model):
     class Meta:
         db_table = 'profile'
 
+
+class Plan(models.Model):
+    user = models.ForeignKey(User, on_delete = models.CASCADE, db_column='username')
+    pid = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=50)
+    description = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        db_table = 'plan'
+
+
+
 class Workout(models.Model):
     user = models.ForeignKey(User, on_delete = models.CASCADE, db_column='username')
     wid = models.AutoField(primary_key=True)
     comment = models.CharField(max_length=100, blank=True, null=True)
     name = models.CharField(max_length=50)
     date = models.DateField()
+    pid = models.ForeignKey(Plan, on_delete = models.CASCADE, db_column='pid', blank=True, null=True)
+
 
     def __str__(self):
         return self.name
@@ -77,19 +94,7 @@ class Exercise(models.Model):
     class Meta:
         db_table = 'exercise'
 
-class Plan(models.Model):
-    user = models.ForeignKey(User, on_delete = models.CASCADE, db_column='username')
-    wid = models.ForeignKey(Workout,  on_delete = models.CASCADE, db_column='wid')
-    pid = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=50)
-    description = models.CharField(max_length=100)
 
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        db_table = 'plan'
-        unique_together = (('pid', 'wid'),)
 
 class Cardio(models.Model):
     eid = models.OneToOneField(Exercise, on_delete = models.CASCADE, db_column='eid', primary_key=True)

@@ -5,6 +5,7 @@
     <h1 class="display-4">Welcome, {{ user.get_full_name }}.</h1>
     <p class="lead">Let's get started!</p>
     <hr class="my-4">
+    <a class="btn btn-warning btn-lg" href="{% url 'new-plan' %}" role="button">Create a New Plan</a>
     <a class="btn btn-primary btn-lg" href="{% url 'new-workout' %}" role="button">Start a new workout</a>
     <a class="btn btn-danger btn-lg" href="{% url 'new-cardio-exercise' %}" role="button">Add a cardio exercise</a>
     <a class="btn btn-success btn-lg" href="{% url 'new-strength-exercise' %}" role="button">Add a strength exercise</a>
@@ -25,12 +26,39 @@
           <li class="list-group-item">
               <b>Comment: </b>{{ workout.comment }} 
           </li>
-          {% endif %}
+
+          {% for plan in plans %}
+            {%if workout.pid.pid == plan.pid %}
+            <li class="list-group-item">
+              <b>Part of Plan:</b> {{plan.name}} 
+            </li>
+          {%endif%}
+          {% endfor %}
       </ul>
-  
   </div>
   {% empty %}
   <p>none</p>
   {% endfor %}
+
+</div>
+
+
+<div class="jumbotron">
+
+<h3>My Recorded Workouts</h3>
+&nbsp;
+<ul>
+{% for workout in object_list %}
+  {%if request.user.profile.user_id == workout.user_id%}
+    <li>{{ workout.name }}</li>
+    <li><i>{{workout.comment}}</i></li>
+      
+    {%endif%} <br>
+{% empty %}
+    <li>No workouts yet - - - What are you waiting for? Get started now!</li>
+
+{% endfor %}
+</ul>
+{% endblock %}
 </div>
 {% endblock %}

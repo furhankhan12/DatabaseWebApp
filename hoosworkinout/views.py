@@ -1,6 +1,6 @@
 from django.urls import reverse
 from django.views.generic import CreateView, TemplateView, UpdateView, ListView
-from .models import Workout, Profile, User, Exercise, Cardio, Strength, Hiit
+from .models import Workout, Profile, User, Exercise, Cardio, Strength, Hiit, Plan
 from django.contrib.auth import logout
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -11,6 +11,10 @@ class HomeView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         return Workout.objects.filter(user=self.request.user.id)
+    def get_context_data(self, **kwargs):
+        context = super(HomeListView, self).get_context_data(**kwargs)
+        context['plans'] = Plan.objects.filter(user_id= self.request.user.profile.user_id)
+        return context
 
 class ProfileView(LoginRequiredMixin, TemplateView):
     template_name = 'hoosworkinout/profile.html'
@@ -32,9 +36,10 @@ class ProfileUpdate(LoginRequiredMixin, UpdateView):
     def get_success_url(self):
         return reverse('home');
 
+
 class CreateWorkoutView(LoginRequiredMixin, CreateView):
     model = Workout
-    fields = ('comment', 'name', 'date')
+    fields = ('pid', 'comment', 'name', 'date')
 
     #This function automatically associates the new workout with the logged user.
     def form_valid(self, form):
@@ -43,6 +48,12 @@ class CreateWorkoutView(LoginRequiredMixin, CreateView):
        print(self.request.user.username)
        candidate.save()
        return redirect(self.get_success_url())
+
+    def get_form(self, *args, **kwargs):
+       form = super(CreateWorkoutView, self).get_form(*args, **kwargs)
+       form.fields['pid'].queryset = Plan.objects.filter(user_id = self.request.user.profile.user_id)
+       return form
+
 
     def get_success_url(self):
         return reverse('home')
@@ -168,6 +179,20 @@ class HIITHelper(LoginRequiredMixin, CreateView):
         form = super(HIITHelper, self).get_form(*args, **kwargs)
         form.fields['eid'].queryset = Exercise.objects.filter(user_id = self.request.user.profile.user_id)
         return form
+
+    def get_success_url(self):
+        return reverse('home')
+
+
+class CreatePlanView(LoginRequiredMixin, CreateView):
+    model = Plan
+    fields = ['name', 'description']
+
+    def form_valid(self, form):
+        candidate = form.save(commit=False)
+        candidate.user = User.objects.filter(username=self.request.user.username)[0]  # use your own profile here
+        candidate.save()
+        return redirect(self.get_success_url())
 
     def get_success_url(self):
         return reverse('home')
