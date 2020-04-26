@@ -1,6 +1,6 @@
 from django.urls import reverse
 from django.views.generic import CreateView, TemplateView, UpdateView
-from .models import Workout, Profile, User
+from .models import Workout, Profile, User, Exercise, Cardio, Strength, Hiit
 from django.contrib.auth import logout
 from django.shortcuts import render, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -22,8 +22,6 @@ class UserUpdate(LoginRequiredMixin, UpdateView):
     def get_success_url(self):
         return reverse('home');
 
-
-
 class CreateWorkoutView(CreateView):
     model = Workout
     fields = ('user', 'comment', 'name', 'date')
@@ -31,10 +29,48 @@ class CreateWorkoutView(CreateView):
         return reverse('home')
 
 class CreateExerciseView(CreateView):
-    model = Workout
-    fields = ('username', 'comment', 'name', 'date')
+    model = Exercise
+    fields = ('wid', 'user', 'comment', 'name')
     def get_success_url(self):
         return reverse('home')
+
+class CreateCardioExerciseView(CreateView):
+    model = Exercise
+    fields = ('wid', 'user', 'comment', 'name')
+    def get_success_url(self):
+        return reverse('cardio')
+class CardioHelper(CreateView):
+    model = Cardio
+    fields = ('eid', 'duration', 'distance', 'calories_burned', 'peak_heartrate')
+    template_name = "hoosworkinout/cardio_form.html"
+    def get_success_url(self):
+        return reverse('home')
+
+class CreateStrengthExerciseView(CreateView):
+    model = Exercise
+    fields = ('wid', 'user', 'comment', 'name')
+    def get_success_url(self):
+        return reverse('strength')
+class StrengthHelper(CreateView):
+    model = Strength
+    fields = ('eid', 'weight', 'category', 'sets')
+    template_name = "hoosworkinout/strength_form.html"
+    def get_success_url(self):
+        return reverse('home')
+
+class CreateHIITExerciseView(CreateView):
+    model = Exercise
+    fields = ('wid', 'user', 'comment', 'name')
+    def get_success_url(self):
+        return reverse('hiit')
+class HIITHelper(CreateView):
+    model = Hiit
+    fields = ('eid', 'distance', 'calories_burned', 'peak_heartrate', 'rest_interval', 'work_interval')
+    template_name = "hoosworkinout/hiit_form.html"
+    def get_success_url(self):
+        return reverse('home')
+
+
 
 def load_profile_page(request, uname):
     current_user = User.objects.filter(username = uname)
