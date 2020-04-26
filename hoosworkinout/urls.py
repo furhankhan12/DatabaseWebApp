@@ -41,6 +41,7 @@ urlpatterns = [
     path('cardio/', views.CardioHelper.as_view(), name='cardio'),
     path('strength/', views.StrengthHelper.as_view(), name='strength'),
     path('hiit/', views.HIITHelper.as_view(), name='hiit'),
+    path('new-plan/', views.CreatePlanView.as_view(), name='new-plan'),
 
 
 ]
