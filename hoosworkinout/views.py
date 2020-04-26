@@ -5,13 +5,6 @@ from django.contrib.auth import logout
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-class WorkoutDetailView(LoginRequiredMixin, ListView):
-    model = Workout
-    context_object_name = 'workouts'
-
-    def get_queryset(self):
-        return Workout.objects.filter(user=self.request.user.id)
-
 class DeleteWorkoutView(LoginRequiredMixin, DeleteView):
     model = Workout
     success_url = reverse_lazy('home')
@@ -57,7 +50,6 @@ class CreateWorkoutView(LoginRequiredMixin, CreateView):
     model = Workout
     fields = ('pid', 'comment', 'name', 'date')
 
-    #This function automatically associates the new workout with the logged user.
     def form_valid(self, form):
        candidate = form.save(commit=False)
        candidate.user = User.objects.filter(username=self.request.user.username)[0]
@@ -74,7 +66,6 @@ class CreateWorkoutView(LoginRequiredMixin, CreateView):
         return reverse('home')
 
 
-#Generic exercise view - not really used
 class CreateExerciseView(LoginRequiredMixin, CreateView):
     model = Exercise
     fields = ('wid', 'comment', 'name')
