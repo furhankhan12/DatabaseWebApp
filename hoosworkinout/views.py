@@ -8,10 +8,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 class HomePageView(LoginRequiredMixin, TemplateView):
     template_name = 'hoosworkinout/home.html'
 
-class ProfileView(TemplateView):
+class ProfileView(LoginRequiredMixin, TemplateView):
     template_name = 'hoosworkinout/profile.html'
 
-class CreateUserView(CreateView):
+class CreateUserView(LoginRequiredMixin, CreateView):
     model = User
     fields = ('username', 'first_name', 'middle_name', 'last_name', 'phone', 'email', 'birthday', 'body_weight', 'best_lift')
 
@@ -21,9 +21,11 @@ class CreateWorkoutView(CreateView):
     def get_success_url(self):
         return reverse('home')
 
-class SignIn(TemplateView):
-    template_name = 'hoosworkinout/signin.html'
-
+class CreateExerciseView(CreateView):
+    model = Workout
+    fields = ('username', 'comment', 'name', 'date')
+    def get_success_url(self):
+        return reverse('home')
 
 def load_profile_page(request, uname):
     current_user = User.objects.filter(username = uname)

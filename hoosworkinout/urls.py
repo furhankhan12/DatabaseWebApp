@@ -37,4 +37,5 @@ urlpatterns = [
     path('profile/', views.CreateUserView.as_view(), name='profile'),
     path('edit-profile/', views.CreateUserView.as_view(), name='edit-profile'),
     path('new-workout/', views.CreateWorkoutView.as_view(), name='new-workout'),
+    path('new-exercise/', views.CreateExerciseView.as_view(), name='new-exercise'),
 ]

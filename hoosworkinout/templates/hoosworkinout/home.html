@@ -1,5 +1,11 @@
 {% extends 'hoosworkinout/base.html' %}
 
 {% block content %}
-<p>hi</p>
+<div class="jumbotron">
+    <h1 class="display-4">Welcome, {{ user.get_full_name }}</h1>
+    <p class="lead">Let's get started!</p>
+    <hr class="my-4">
+    <a class="btn btn-primary btn-lg" href="{% url 'new-workout' %}" role="button">Start a new workout</a>
+    <a class="btn btn-primary btn-lg" href="{% url 'new-exercise' %}" role="button">Add an exercise</a>
+</div>  
 {% endblock %}
