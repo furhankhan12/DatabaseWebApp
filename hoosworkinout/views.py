@@ -52,13 +52,16 @@ class ProfileUpdate(LoginRequiredMixin, UpdateView):
         return get_object_or_404(User, pk=self.request.user.id)
 
     def form_valid(self, form):
-        candidate = form.save(commit=False)
-        candidate.user = User.objects.filter(username=self.request.user.username)[0]  # use your own profile here
-        candidate.save()
+        user = form.save(commit=False)
+        form = form.cleaned_data
+        user.profile.birthday = form['birthday']
+        user.profile.best_lift = form['best_lift']
+        user.profile.body_weight = form['body_weight']
+        user.save()
         return redirect(self.get_success_url())
 
     def get_success_url(self):
-        return reverse('home');
+        return reverse('profile');
 
 
 class CreateWorkoutView(LoginRequiredMixin, CreateView):
