@@ -34,6 +34,7 @@ urlpatterns = [
     path('profile/', views.ProfileView.as_view(), name='profile'),
     path('edit-profile/', views.ProfileUpdate.as_view(), name='edit-profile'),
     path('new-workout/', views.CreateWorkoutView.as_view(), name='new-workout'),
+    path('delete-workout/<int:pk>/', views.DeleteWorkoutView.as_view(), name='delete-workout'),
     path('new-exercise/', views.CreateExerciseView.as_view(), name='new-exercise'),
     path('new-cardio-exercise/', views.CreateCardioExerciseView.as_view(), name='new-cardio-exercise'),
     path('new-strength-exercise/', views.CreateStrengthExerciseView.as_view(), name='new-strength-exercise'),

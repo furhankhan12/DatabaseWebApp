@@ -1,9 +1,20 @@
-from django.urls import reverse
-from django.views.generic import CreateView, TemplateView, UpdateView, ListView
+from django.urls import reverse, reverse_lazy
+from django.views.generic import CreateView, TemplateView, UpdateView, ListView, DeleteView
 from .models import Workout, Profile, User, Exercise, Cardio, Strength, Hiit, Plan
 from django.contrib.auth import logout
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
+
+class WorkoutDetailView(LoginRequiredMixin, ListView):
+    model = Workout
+    context_object_name = 'workouts'
+
+    def get_queryset(self):
+        return Workout.objects.filter(user=self.request.user.id)
+
+class DeleteWorkoutView(LoginRequiredMixin, DeleteView):
+    model = Workout
+    success_url = reverse('home')
 
 class HomeView(LoginRequiredMixin, ListView):
     model = Workout
@@ -47,7 +58,6 @@ class CreateWorkoutView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
        candidate = form.save(commit=False)
        candidate.user = User.objects.filter(username=self.request.user.username)[0]
-       print(self.request.user.username)
        candidate.save()
        return redirect(self.get_success_url())
 
