@@ -1,5 +1,5 @@
 from django.urls import reverse
-from django.views.generic import CreateView, TemplateView, UpdateView
+from django.views.generic import CreateView, TemplateView, UpdateView, ListView
 from .models import Workout, Profile, User, Exercise, Cardio, Strength, Hiit
 from django.contrib.auth import logout
 from django.shortcuts import render, redirect
@@ -7,6 +7,12 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 class HomePageView(LoginRequiredMixin, TemplateView):
     template_name = 'hoosworkinout/home.html'
+
+class HomeListView(LoginRequiredMixin, ListView):
+    model = Workout
+    fields = ['name']
+    template_name = 'hoosworkinout/home.html'
+
 
 class ProfileView(LoginRequiredMixin, TemplateView):
     template_name = 'hoosworkinout/profile.html'

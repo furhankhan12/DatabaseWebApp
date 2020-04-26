@@ -33,7 +33,7 @@ urlpatterns = [
     path(r'load_profile_page/<str:uname>', views.load_profile_page, name='load_profile_page'),
 
     # User views
-    path('home/', views.HomePageView.as_view(), name='home'),
+    path('home/', views.HomeListView.as_view(), name='home'),
     url(r'^profile/(?P<pk>\d+)/$', views.UserUpdate.as_view(), name='profile'),
     path('edit-profile/', views.CreateUserView.as_view(), name='edit-profile'),
     path('new-workout/', views.CreateWorkoutView.as_view(), name='new-workout'),
