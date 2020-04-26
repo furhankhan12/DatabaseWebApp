@@ -12,7 +12,7 @@ from django.dispatch import receiver
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    birthday = models.DateField()
+    birthday = models.DateField(blank=True, null=True)
     body_weight = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
     best_lift = models.IntegerField(blank=True, null=True)
 
