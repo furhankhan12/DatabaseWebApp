@@ -1,6 +1,6 @@
 from django.urls import reverse
-from django.views.generic import CreateView, TemplateView
-from .models import Workout, User
+from django.views.generic import CreateView, TemplateView, UpdateView
+from .models import Workout, Profile, User
 from django.contrib.auth import logout
 from django.shortcuts import render, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -12,12 +12,21 @@ class ProfileView(LoginRequiredMixin, TemplateView):
     template_name = 'hoosworkinout/profile.html'
 
 class CreateUserView(LoginRequiredMixin, CreateView):
-    model = User
-    fields = ('username', 'first_name', 'middle_name', 'last_name', 'phone', 'email', 'birthday', 'body_weight', 'best_lift')
+    model =  User
+    fields = ('first_name', 'last_name', 'email')
+
+class UserUpdate(LoginRequiredMixin, UpdateView):
+    model = Profile
+    fields = ['user', 'birthday', 'body_weight', 'best_lift']
+    template_name = 'hoosworkinout/user_form.html'
+    def get_success_url(self):
+        return reverse('home');
+
+
 
 class CreateWorkoutView(CreateView):
     model = Workout
-    fields = ('username', 'comment', 'name', 'date')
+    fields = ('user', 'comment', 'name', 'date')
     def get_success_url(self):
         return reverse('home')
 
@@ -52,7 +61,7 @@ def authenticate(request):
         if user.username == username:
             initialized = True
     if initialized == False:
-        new_user = User(username, 'first_name', 'middle_name', 'last_name', 'phone', 'email', '2000-01-01', 0.0, 0)
+
         new_user.save()
 
     return redirect('/load_profile_page/'+username)

@@ -31,10 +31,10 @@ urlpatterns = [
 
     path('authenticate/', views.authenticate, name='authenticate'),
     path(r'load_profile_page/<str:uname>', views.load_profile_page, name='load_profile_page'),
-    
+
     # User views
     path('home/', views.HomePageView.as_view(), name='home'),
-    path('profile/', views.CreateUserView.as_view(), name='profile'),
+    url(r'^profile/(?P<pk>\d+)/$', views.UserUpdate.as_view(), name='profile'),
     path('edit-profile/', views.CreateUserView.as_view(), name='edit-profile'),
     path('new-workout/', views.CreateWorkoutView.as_view(), name='new-workout'),
     path('new-exercise/', views.CreateExerciseView.as_view(), name='new-exercise'),
