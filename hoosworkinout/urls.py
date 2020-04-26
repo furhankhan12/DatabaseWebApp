@@ -29,9 +29,6 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('', auth_views.LoginView.as_view(), name='login'),
 
-    path('authenticate/', views.authenticate, name='authenticate'),
-    path(r'load_profile_page/<str:uname>', views.load_profile_page, name='load_profile_page'),
-
     # User views
     path('home/', views.HomeListView.as_view(), name='home'),
     url(r'^profile/(?P<pk>\d+)/$', views.UserUpdate.as_view(), name='profile'),

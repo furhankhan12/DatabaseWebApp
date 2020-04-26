@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'hoosworkinout',
     'social_django',
-    'crispy_forms'
+    'crispy_forms',
+    'import_export',
 ]
 
 MIDDLEWARE = [
@@ -176,7 +177,7 @@ SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.user.create_user',
 
     # Add custom pipeline here
-    'hoosworkinout.utils.print_response',
+    #'hoosworkinout.utils.print_response',
 
     # Create the record that associates the social account with the user.
     'social_core.pipeline.social_auth.associate_user',

@@ -36,6 +36,7 @@ class CreateWorkoutView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
        candidate = form.save(commit=False)
        candidate.user = User.objects.filter(username=self.request.user.username)[0]
+       print(self.request.user.username)
        candidate.save()
        return redirect(self.get_success_url())
 
@@ -44,11 +45,13 @@ class CreateWorkoutView(LoginRequiredMixin, CreateView):
 
 
 #Generic exercise view - not really used
-class CreateExerciseView(CreateView):
+class CreateExerciseView(LoginRequiredMixin, CreateView):
     model = Exercise
     fields = ('wid', 'comment', 'name')
+
     def get_success_url(self):
         return reverse('home')
+        
     def form_valid(self, form):
         candidate = form.save(commit=False)
         candidate.user = User.objects.filter(username=self.request.user.username)[0]  # use your own profile here
@@ -72,7 +75,7 @@ dropdown and improves security by making sure you can't select other users.
 
 
 '''
-class CreateCardioExerciseView(CreateView):
+class CreateCardioExerciseView(LoginRequiredMixin, CreateView):
     model = Exercise
     fields = ('wid', 'comment', 'name')
 
@@ -90,7 +93,7 @@ class CreateCardioExerciseView(CreateView):
     def get_success_url(self):
         return reverse('cardio')
 
-class CardioHelper(CreateView):
+class CardioHelper(LoginRequiredMixin, CreateView):
     model = Cardio
     fields = ('eid', 'duration', 'distance', 'calories_burned', 'peak_heartrate')
     template_name = "hoosworkinout/cardio_form.html"
@@ -103,7 +106,7 @@ class CardioHelper(CreateView):
     def get_success_url(self):
         return reverse('home')
 
-class CreateStrengthExerciseView(CreateView):
+class CreateStrengthExerciseView(LoginRequiredMixin, CreateView):
     model = Exercise
     fields = ('wid', 'comment', 'name')
 
@@ -121,7 +124,7 @@ class CreateStrengthExerciseView(CreateView):
     def get_success_url(self):
         return reverse('strength')
 
-class StrengthHelper(CreateView):
+class StrengthHelper(LoginRequiredMixin, CreateView):
     model = Strength
     fields = ('eid', 'weight', 'category', 'sets')
     template_name = "hoosworkinout/strength_form.html"
@@ -134,9 +137,9 @@ class StrengthHelper(CreateView):
     def get_success_url(self):
         return reverse('home')
 
-class CreateHIITExerciseView(CreateView):
+class CreateHIITExerciseView(LoginRequiredMixin, CreateView):
     model = Exercise
-    fields = ('wid', 'comment', 'name')
+    fields = ('wid', 'name', 'comment')
 
     def get_form(self, *args, **kwargs):
         form = super(CreateHIITExerciseView, self).get_form(*args, **kwargs)
@@ -152,7 +155,7 @@ class CreateHIITExerciseView(CreateView):
     def get_success_url(self):
         return reverse('hiit')
 
-class HIITHelper(CreateView):
+class HIITHelper(LoginRequiredMixin, CreateView):
     model = Hiit
     fields = ('eid', 'distance', 'calories_burned', 'peak_heartrate', 'rest_interval', 'work_interval')
     template_name = "hoosworkinout/hiit_form.html"
@@ -164,34 +167,3 @@ class HIITHelper(CreateView):
 
     def get_success_url(self):
         return reverse('home')
-
-
-def load_profile_page(request, uname):
-    current_user = User.objects.filter(username = uname)
-    current_workouts = Workout.objects.filter(username=uname)
-    allUsers = User.objects.all()
-    context = {
-        "current_user" : current_user,
-        "current_workouts" : current_workouts,
-        "allProfiles" : allUsers,
-        }
-    return render(request, 'hoosworkinout/home.html', context)
-
-def authenticate(request):
-#Check to see if this is a new user
-#If it is, create a new user model and save it to the database
-    get_email = request.user.email
-    at_symbol_index = get_email.find('@')
-    username = get_email[:at_symbol_index]
-
-    initialized = False
-    all_users = User.objects.all()
-
-    for user in all_users:
-        if user.username == username:
-            initialized = True
-    if initialized == False:
-
-        new_user.save()
-
-    return redirect('/load_profile_page/'+username)
