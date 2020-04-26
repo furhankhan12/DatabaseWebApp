@@ -22,9 +22,17 @@ class UserUpdate(LoginRequiredMixin, UpdateView):
     def get_success_url(self):
         return reverse('home');
 
-class CreateWorkoutView(CreateView):
+class CreateWorkoutView(LoginRequiredMixin, CreateView):
     model = Workout
-    fields = ('user', 'comment', 'name', 'date')
+    fields = ('comment', 'name', 'date')
+
+    #This should automatically associate the new workout with a particular user.
+    def form_valid(self, form):
+       candidate = form.save(commit=False)
+       candidate.user = User.objects.filter(username=self.request.user.username)[0]  # use your own profile here
+       candidate.save()
+       return redirect(self.get_success_url())
+
     def get_success_url(self):
         return reverse('home')
 

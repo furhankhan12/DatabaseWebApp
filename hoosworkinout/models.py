@@ -35,6 +35,9 @@ class Workout(models.Model):
     name = models.CharField(max_length=50)
     date = models.DateField()
 
+    def __str__(self):
+        return self.name
+
     class Meta:
         db_table = 'workout'
 
@@ -44,15 +47,19 @@ class Location(models.Model):
     address = models.CharField(max_length=50)
     phone = models.CharField(max_length=16, blank=True, null=True)
 
+    def __str__(self):
+        return self.name
+
     class Meta:
         db_table = 'location'
 
 
 class WorkedOutAt(models.Model):
-    id = models.AutoField(primary_key=True)   
+    id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete = models.CASCADE, db_column='username')
     wid = models.ForeignKey(Workout, on_delete = models.CASCADE, db_column='wid')
     lid = models.ForeignKey(Location, on_delete = models.CASCADE, db_column='lid')
+
 
     class Meta:
         db_table = 'worked_out_at'
@@ -64,6 +71,9 @@ class Exercise(models.Model):
     name = models.CharField(max_length=16)
     comment = models.CharField(max_length=100, blank=True, null=True)
 
+    def __str__(self):
+        return self.name
+
     class Meta:
         db_table = 'exercise'
 
@@ -73,6 +83,9 @@ class Plan(models.Model):
     pid = models.AutoField(primary_key=True)
     name = models.CharField(max_length=50)
     description = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
 
     class Meta:
         db_table = 'plan'
@@ -84,6 +97,8 @@ class Cardio(models.Model):
     distance = models.DecimalField(max_digits=4, decimal_places=1)
     calories_burned = models.IntegerField(blank=True, null=True)
     peak_heartrate = models.IntegerField(blank=True, null=True)
+
+
 
     class Meta:
         db_table = 'cardio'
