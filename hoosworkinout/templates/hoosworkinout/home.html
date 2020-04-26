@@ -20,21 +20,22 @@
       </div>
       <ul class="list-group list-group-flush">
           <li class="list-group-item">
-              <b>Date: </b>{{ workout.date }} 
+              <b>Date: </b>{{ workout.date }}
           </li>
           {% if workout.comment %}
           <li class="list-group-item">
-              <b>Comment: </b>{{ workout.comment }} 
+              <b>Comment: </b>{{ workout.comment }}
           </li>
-
-          {% for plan in plans %}
-            {%if workout.pid.pid == plan.pid %}
-            <li class="list-group-item">
-              <b>Part of Plan:</b> {{plan.name}} 
-            </li>
-            {% endif %}
+            {%endif%}
+            {% for plan in plans %}
+              {%if workout.pid.pid == plan.pid %}
+                <li class = "list-group-item"><b>Part of Plan: </b>{{plan.name}}</li>
+                  {%endif%}
+              {% endfor %}
+          
           {% endfor %}
+
       </ul>
   </div>
-  {% endfor %}
+  {%endblock%}
 </div>
