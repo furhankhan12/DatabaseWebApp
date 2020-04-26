@@ -26,10 +26,10 @@ class CreateWorkoutView(LoginRequiredMixin, CreateView):
     model = Workout
     fields = ('comment', 'name', 'date')
 
-    #This should automatically associate the new workout with a particular user.
+    #This function automatically associates the new workout with the logged user.
     def form_valid(self, form):
        candidate = form.save(commit=False)
-       candidate.user = User.objects.filter(username=self.request.user.username)[0]  # use your own profile here
+       candidate.user = User.objects.filter(username=self.request.user.username)[0]
        candidate.save()
        return redirect(self.get_success_url())
 
@@ -38,46 +38,107 @@ class CreateWorkoutView(LoginRequiredMixin, CreateView):
 
 class CreateExerciseView(CreateView):
     model = Exercise
-    fields = ('wid', 'user', 'comment', 'name')
+    fields = ('wid', 'comment', 'name')
     def get_success_url(self):
         return reverse('home')
+    def form_valid(self, form):
+        candidate = form.save(commit=False)
+        candidate.user = User.objects.filter(username=self.request.user.username)[0]  # use your own profile here
+        candidate.save()
+        return redirect(self.get_success_url())
 
 class CreateCardioExerciseView(CreateView):
     model = Exercise
-    fields = ('wid', 'user', 'comment', 'name')
+    fields = ('wid', 'comment', 'name')
+
+    def get_form(self, *args, **kwargs):
+        form = super(CreateCardioExerciseView, self).get_form(*args, **kwargs)
+        form.fields['wid'].queryset = Workout.objects.filter(user_id = self.request.user.profile.user_id)
+        return form
+
+    def form_valid(self, form):
+        candidate = form.save(commit=False)
+        candidate.user = User.objects.filter(username=self.request.user.username)[0]  # use your own profile here
+        candidate.save()
+        return redirect(self.get_success_url())
+
     def get_success_url(self):
         return reverse('cardio')
+
 class CardioHelper(CreateView):
     model = Cardio
     fields = ('eid', 'duration', 'distance', 'calories_burned', 'peak_heartrate')
     template_name = "hoosworkinout/cardio_form.html"
+
+    def get_form(self, *args, **kwargs):
+        form = super(CardioHelper, self).get_form(*args, **kwargs)
+        form.fields['eid'].queryset = Exercise.objects.filter(user_id = self.request.user.profile.user_id)
+        return form
+
     def get_success_url(self):
         return reverse('home')
 
 class CreateStrengthExerciseView(CreateView):
     model = Exercise
-    fields = ('wid', 'user', 'comment', 'name')
+    fields = ('wid', 'comment', 'name')
+
+    def get_form(self, *args, **kwargs):
+        form = super(CreateStrengthExerciseView, self).get_form(*args, **kwargs)
+        form.fields['wid'].queryset = Workout.objects.filter(user_id = self.request.user.profile.user_id)
+        return form
+
+    def form_valid(self, form):
+        candidate = form.save(commit=False)
+        candidate.user = User.objects.filter(username=self.request.user.username)[0]  # use your own profile here
+        candidate.save()
+        return redirect(self.get_success_url())
+
     def get_success_url(self):
         return reverse('strength')
+
 class StrengthHelper(CreateView):
     model = Strength
     fields = ('eid', 'weight', 'category', 'sets')
     template_name = "hoosworkinout/strength_form.html"
+
+    def get_form(self, *args, **kwargs):
+        form = super(StrengthHelper, self).get_form(*args, **kwargs)
+        form.fields['eid'].queryset = Exercise.objects.filter(user_id = self.request.user.profile.user_id)
+        return form
+
     def get_success_url(self):
         return reverse('home')
 
 class CreateHIITExerciseView(CreateView):
     model = Exercise
-    fields = ('wid', 'user', 'comment', 'name')
+    fields = ('wid', 'comment', 'name')
+
+    def get_form(self, *args, **kwargs):
+        form = super(CreateHIITExerciseView, self).get_form(*args, **kwargs)
+        form.fields['wid'].queryset = Workout.objects.filter(user_id = self.request.user.profile.user_id)
+        return form
+
+    def form_valid(self, form):
+        candidate = form.save(commit=False)
+        candidate.user = User.objects.filter(username=self.request.user.username)[0]  # use your own profile here
+        candidate.save()
+        return redirect(self.get_success_url())
+
     def get_success_url(self):
         return reverse('hiit')
+
 class HIITHelper(CreateView):
     model = Hiit
     fields = ('eid', 'distance', 'calories_burned', 'peak_heartrate', 'rest_interval', 'work_interval')
     template_name = "hoosworkinout/hiit_form.html"
+
+    def get_form(self, *args, **kwargs):
+        form = super(HIITHelper, self).get_form(*args, **kwargs)
+        form.fields['eid'].queryset = Exercise.objects.filter(user_id = self.request.user.profile.user_id)
+        return form
+
     def get_success_url(self):
         return reverse('home')
-
 
 
 def load_profile_page(request, uname):
