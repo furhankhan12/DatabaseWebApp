@@ -12,7 +12,7 @@ class HomeView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         return Workout.objects.filter(user=self.request.user.id)
     def get_context_data(self, **kwargs):
-        context = super(HomeListView, self).get_context_data(**kwargs)
+        context = super(HomeView, self).get_context_data(**kwargs)
         context['plans'] = Plan.objects.filter(user_id= self.request.user.profile.user_id)
         return context
 

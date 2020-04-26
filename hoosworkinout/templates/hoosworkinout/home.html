@@ -32,33 +32,9 @@
             <li class="list-group-item">
               <b>Part of Plan:</b> {{plan.name}} 
             </li>
-          {%endif%}
+            {% endif %}
           {% endfor %}
       </ul>
   </div>
-  {% empty %}
-  <p>none</p>
   {% endfor %}
-
 </div>
-
-
-<div class="jumbotron">
-
-<h3>My Recorded Workouts</h3>
-&nbsp;
-<ul>
-{% for workout in object_list %}
-  {%if request.user.profile.user_id == workout.user_id%}
-    <li>{{ workout.name }}</li>
-    <li><i>{{workout.comment}}</i></li>
-      
-    {%endif%} <br>
-{% empty %}
-    <li>No workouts yet - - - What are you waiting for? Get started now!</li>
-
-{% endfor %}
-</ul>
-{% endblock %}
-</div>
-{% endblock %}
