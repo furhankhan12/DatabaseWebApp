@@ -56,7 +56,7 @@ class CreateExerciseView(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         return reverse('home')
-        
+
     def form_valid(self, form):
         candidate = form.save(commit=False)
         candidate.user = User.objects.filter(username=self.request.user.username)[0]  # use your own profile here
@@ -68,7 +68,7 @@ Each exercise form has TWO methods: One that creates the actual exercise model,
 and a helper method that fills in the specific fields for that exercise (cardio,
 strength, or hiit. This is because you can't really edit two models in the same
 CreateView, so the first one creates the exercise model and then bounces you
-to the second one to create the cardio, strenght, or hiit model.
+to the second one to create the cardio, strength, or hiit model.
 
 The get_form() overrride allows you to filter the dropdowns for wid and eid in
 those forms. Below, it is used to only show the workouts and exercises associated with
