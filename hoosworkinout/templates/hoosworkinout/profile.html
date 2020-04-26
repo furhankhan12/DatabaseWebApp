@@ -1,18 +1,24 @@
 {% extends 'hoosworkinout/base.html' %}
 
 {% block content %}
-
-{%for cur_user in current_user%}
-This is {{cur_user.username}}'s profile
-
-{%endfor%}
-
-
-<div class="jumbotron jumbotron-fluid" style="height: 1%; background-color:#f4f7f6; color: #e24e42;">
-	<div class="container">
-		<h1 class="display-5" style="font-family: 'Major Mono Display', monospace;">My Workouts</h1>
-		<hr class="my-4">
-	</div>
-</div>
-
+<div class="jumbotron">
+	<h1 class="display-4">Hey there, {{ user.get_full_name }}</h1>
+	<p class="lead">Here are your current stats</p>
+	<hr class="my-4">
+	<p class="lead">
+		<a class="btn btn-primary btn-lg" href="{% url 'edit-profile' %}" role="button">Edit Profile</a>
+	  </p>
+  </div>
+  <div style="display: flex; justify-content: center;">
+	<div class="card w-50">
+		<div class="card-header">
+		  User Profile
+		</div>
+		<ul class="list-group list-group-flush">
+		  <li class="list-group-item">Cras justo odio</li>
+		  <li class="list-group-item">Dapibus ac facilisis in</li>
+		  <li class="list-group-item">Vestibulum at eros</li>
+		</ul>
+	  </div>
+  </div>
 {% endblock %}

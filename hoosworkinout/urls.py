@@ -30,9 +30,9 @@ urlpatterns = [
     path('', auth_views.LoginView.as_view(), name='login'),
 
     # User views
-    path('home/', views.HomeListView.as_view(), name='home'),
-    url(r'^profile/(?P<pk>\d+)/$', views.UserUpdate.as_view(), name='profile'),
-    path('edit-profile/', views.CreateUserView.as_view(), name='edit-profile'),
+    path('home/', views.HomeView.as_view(), name='home'),
+    path('profile/', views.ProfileView.as_view(), name='profile'),
+    path('edit-profile/', views.ProfileUpdate.as_view(), name='edit-profile'),
     path('new-workout/', views.CreateWorkoutView.as_view(), name='new-workout'),
     path('new-exercise/', views.CreateExerciseView.as_view(), name='new-exercise'),
     path('new-cardio-exercise/', views.CreateCardioExerciseView.as_view(), name='new-cardio-exercise'),

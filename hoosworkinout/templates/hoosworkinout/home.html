@@ -2,30 +2,35 @@
 
 {% block content %}
 <div class="jumbotron">
-    <h1 class="display-4">Welcome, {{ user.get_full_name }}</h1>
+    <h1 class="display-4">Welcome, {{ user.get_full_name }}.</h1>
     <p class="lead">Let's get started!</p>
     <hr class="my-4">
     <a class="btn btn-primary btn-lg" href="{% url 'new-workout' %}" role="button">Start a new workout</a>
     <a class="btn btn-danger btn-lg" href="{% url 'new-cardio-exercise' %}" role="button">Add a cardio exercise</a>
-      <a class="btn btn-success btn-lg" href="{% url 'new-strength-exercise' %}" role="button">Add a strength exercise</a>
-        <a class="btn btn-info btn-lg" href="{% url 'new-hiit-exercise' %}" role="button">Add a HIIT exercise</a>
+    <a class="btn btn-success btn-lg" href="{% url 'new-strength-exercise' %}" role="button">Add a strength exercise</a>
+    <a class="btn btn-info btn-lg" href="{% url 'new-hiit-exercise' %}" role="button">Add a HIIT exercise</a>
 </div>
 
-
-<div class="jumbotron">
-
-<h3>My Recorded Workouts</h3>
-&nbsp;
-<ul>
-{% for workout in object_list %}
-  {%if request.user.profile.user_id == workout.user_id%}
-    <li>{{ workout.name }}</li>
-    <i>{{workout.comment}}</i><br><br>
-    {%endif%}
-{% empty %}
-    <li>No workouts yet - - - What are you waiting for? Get started now!</li>
-
-{% endfor %}
-</ul>
+<div style="display: flex; justify-content: center;">
+  {% for workout in object_list %}
+  <div class="card" style="width: 20rem; margin: auto;">
+      <div class="card-header">
+        {{ workout.name }}
+      </div>
+      <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+              <b>Date: </b>{{ workout.date }} 
+          </li>
+          {% if workout.comment %}
+          <li class="list-group-item">
+              <b>Comment: </b>{{ workout.comment }} 
+          </li>
+          {% endif %}
+      </ul>
+  
+  </div>
+  {% empty %}
+  <p>none</p>
+  {% endfor %}
+</div>
 {% endblock %}
-</div>

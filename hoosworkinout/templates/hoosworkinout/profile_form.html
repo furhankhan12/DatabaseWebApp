@@ -3,10 +3,15 @@
 
 {% block content %}
 <div class="jumbotron">
-  <h1 class="display-4">Edit your profile</h1>
+  <h1 class="display-4">Hey there, {{ user.get_full_name }}</h1>
+  <p class="lead">Edit your profile here</p>
+  <hr class="my-0">
 </div>
 <div style="display: flex; justify-content: center;">
   <div class="card w-50">
+    <div class="card-header">
+		  User Profile
+		</div>
     <div class="card-body">
       <form method="post">
         {% csrf_token %}

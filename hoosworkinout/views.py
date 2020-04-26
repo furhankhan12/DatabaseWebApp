@@ -2,34 +2,26 @@ from django.urls import reverse
 from django.views.generic import CreateView, TemplateView, UpdateView, ListView
 from .models import Workout, Profile, User, Exercise, Cardio, Strength, Hiit
 from django.contrib.auth import logout
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-class HomePageView(LoginRequiredMixin, TemplateView):
-    template_name = 'hoosworkinout/home.html'
-
-'''
-ListView creates a list called "object_list" that is available in the HTML.
-All you have to have to do is loop through the object_list and display
-the items you want. (Make sure to validate them with the current logged in user)
-'''
-
-class HomeListView(LoginRequiredMixin, ListView):
+class HomeView(LoginRequiredMixin, ListView):
     model = Workout
     template_name = 'hoosworkinout/home.html'
 
+    def get_queryset(self):
+        return Workout.objects.filter(user=self.request.user.id)
 
 class ProfileView(LoginRequiredMixin, TemplateView):
     template_name = 'hoosworkinout/profile.html'
 
-class CreateUserView(LoginRequiredMixin, CreateView):
-    model =  User
-    fields = ('first_name', 'last_name', 'email')
-
-class UserUpdate(LoginRequiredMixin, UpdateView):
+class ProfileUpdate(LoginRequiredMixin, UpdateView):
     model = Profile
     fields = ['birthday', 'body_weight', 'best_lift']
-    template_name = 'hoosworkinout/user_form.html'
+    template_name = 'hoosworkinout/profile_form.html'
+
+    def get_object(self):
+        return get_object_or_404(User, pk=self.request.user.id)
 
     def form_valid(self, form):
         candidate = form.save(commit=False)
