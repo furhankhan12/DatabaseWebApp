@@ -41,6 +41,7 @@
         {% if user.is_authenticated %}
         <p class="card-text">You are currently logged as {{ user.username }}.</p>
         <a class="btn btn-primary" href="{% url 'logout' %}">Logout</a>
+        <a class="btn btn-primary" href="{% url 'home' %}">Go Home</a>
         {% else %}
         <p class="card-text">Please tap the button to enter with your UVa email.</p>
         <a class="btn btn-primary" href="{% url 'social:begin' 'google-oauth2' %}">Login</a>

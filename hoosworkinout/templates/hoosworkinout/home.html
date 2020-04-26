@@ -12,7 +12,7 @@
     <a class="btn btn-info btn-lg" href="{% url 'new-hiit-exercise' %}" role="button">Add a HIIT exercise</a>
 </div>
 
-<div style="display: flex; justify-content: center;">
+<div style="display: flex; justify-content: center; flex-wrap: wrap;">
   {% for workout in workouts %}
   <div class="card" style="width: 20rem; margin: auto;">
       <div class="card-header">

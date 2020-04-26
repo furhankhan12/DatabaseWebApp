@@ -14,7 +14,7 @@ class WorkoutDetailView(LoginRequiredMixin, ListView):
 
 class DeleteWorkoutView(LoginRequiredMixin, DeleteView):
     model = Workout
-    success_url = reverse('home')
+    success_url = reverse_lazy('home')
 
 class HomeView(LoginRequiredMixin, ListView):
     model = Workout
