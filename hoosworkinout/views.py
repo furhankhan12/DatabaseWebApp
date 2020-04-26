@@ -10,7 +10,6 @@ class HomePageView(LoginRequiredMixin, TemplateView):
 
 class HomeListView(LoginRequiredMixin, ListView):
     model = Workout
-    fields = ['name']
     template_name = 'hoosworkinout/home.html'
 
 
