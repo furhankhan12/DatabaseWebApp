@@ -8,9 +8,14 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 class HomePageView(LoginRequiredMixin, TemplateView):
     template_name = 'hoosworkinout/home.html'
 
+'''
+ListView creates a list called "object_list" that is available in the HTML.
+All you have to have to do is loop through the object_list and display
+the items you want. (Make sure to validate them with the current logged in user)
+'''
+
 class HomeListView(LoginRequiredMixin, ListView):
     model = Workout
-    fields = ['name']
     template_name = 'hoosworkinout/home.html'
 
 

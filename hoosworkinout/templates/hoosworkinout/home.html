@@ -18,10 +18,13 @@
 &nbsp;
 <ul>
 {% for workout in object_list %}
+  {%if request.user.profile.user_id == workout.user_id%}
     <li>{{ workout.name }}</li>
-    &nbsp;
+    <i>{{workout.comment}}</i><br><br>
+    {%endif%}
 {% empty %}
     <li>No workouts yet - - - What are you waiting for? Get started now!</li>
+
 {% endfor %}
 </ul>
 {% endblock %}
