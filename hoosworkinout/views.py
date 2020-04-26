@@ -8,12 +8,14 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 class HomeView(LoginRequiredMixin, ListView):
     model = Workout
     template_name = 'hoosworkinout/home.html'
+    context_object_name = 'workouts'
 
     def get_queryset(self):
         return Workout.objects.filter(user=self.request.user.id)
+
     def get_context_data(self, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
-        context['plans'] = Plan.objects.filter(user_id= self.request.user.profile.user_id)
+        context['plans'] = Plan.objects.filter(user_id= self.request.user.id)
         return context
 
 class ProfileView(LoginRequiredMixin, TemplateView):
