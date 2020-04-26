@@ -5,6 +5,23 @@ from django.contrib.auth import logout
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+class WorkoutDetailView(LoginRequiredMixin, ListView):
+    model = Workout
+    context_object_name = 'workouts'
+    template_name = 'hoosworkinout/workout-detail.html'
+
+    def get_queryset(self):
+        return Workout.objects.filter(wid = self.kwargs.get('pk'))
+
+    def get_context_data(self, **kwargs):
+        context = super(WorkoutDetailView, self).get_context_data(**kwargs)
+        context['exercises'] = Exercise.objects.filter(wid = self.kwargs.get('pk'))
+        context['strengths'] = Strength.objects.all()
+        context['cardios'] = Cardio.objects.all()
+        context['hiits'] = Hiit.objects.all()
+
+        return context
+
 class DeleteWorkoutView(LoginRequiredMixin, DeleteView):
     model = Workout
     success_url = reverse_lazy('home')

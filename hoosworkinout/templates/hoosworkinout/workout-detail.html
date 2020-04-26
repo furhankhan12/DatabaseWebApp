@@ -1,0 +1,105 @@
+{% extends 'hoosworkinout/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="jumbotron">
+    <h1 class="display-4">Workout Info:</h1>
+    </div>
+
+
+<div style="display: flex; justify-content: center; flex-wrap: wrap;">
+  {% for workout in workouts %}
+  <div class="card" style="width: 20rem; margin: auto;">
+      <div class="card-header">
+        {{ workout.name }}
+      </div>
+      <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+              <b>Date: </b>{{ workout.date }}
+          </li>
+          {% if workout.comment %}
+          <li class="list-group-item">
+              <b>Comment: </b>{{ workout.comment }}
+          </li>
+          {% endif %}
+
+      </ul>
+  </div>
+  {% empty %}
+  <p>No workouts recorded!</p>
+  {% endfor %}
+</div>
+<br>
+
+
+<div style="display: flex; justify-content: center; flex-wrap: wrap;">
+  {% for exercise in exercises%}
+  <div class="card" style="width: 20rem; margin: auto;">
+      <div class="card-header">
+        {{ exercise.name }}
+      </div>
+      <ul class="list-group list-group-flush">
+
+          {% if exercise.comment %}
+          <li class="list-group-item">
+              <b>Comment: </b>{{ exercise.comment }}
+          </li>
+          {% endif %}
+          {%for cardio in cardios%}
+            {% if cardio.eid.eid == exercise.eid%}
+            <li class="list-group-item">
+                <b>Distance: </b>{{ cardio.distance}}
+            </li>
+            <li class="list-group-item">
+                <b>Duration: </b>{{ cardio.duration}}
+            </li>
+            <li class="list-group-item">
+                <b>Calories Burned: </b>{{ cardio.calories_burned}}
+            </li>
+            <li class="list-group-item">
+                <b>Peak Heartrate: </b>{{ cardio.peak_heartrate}}
+            </li>
+            {%endif%}
+          {%endfor%}
+          {%for strength in strengths%}
+            {% if strength.eid.eid == exercise.eid%}
+            <li class="list-group-item">
+                <b>Weight: </b>{{ strength.weight}}
+            </li>
+            <li class="list-group-item">
+                <b>Sets: </b>{{ strength.sets}}
+            </li>
+            <li class="list-group-item">
+                <b>Category: </b>{{ strength.category}}
+            </li>
+
+            {%endif%}
+          {%endfor%}
+
+          {%for hiit in hiits%}
+            {% if hiit.eid.eid == exercise.eid%}
+            <li class="list-group-item">
+                <b>Distance: </b>{{ hiit.distance}}
+            </li>
+            <li class="list-group-item">
+                <b>Calories Burned: </b>{{ hiit.calories_burned}}
+            </li>
+            <li class="list-group-item">
+                <b>Peak Heartrate: </b>{{ hiit.peak_heartrate}}
+            </li>
+            <li class="list-group-item">
+                <b>Work Interval: </b>{{ hiit.work_interval}}
+            </li>
+            <li class="list-group-item">
+                <b>Rest Interval: </b>{{hiit.rest_interval}}
+            </li>
+
+            {%endif%}
+          {%endfor%}
+      </ul>
+  </div>
+  {% empty %}
+  <p>No Exercises recorded!</p>
+  {% endfor %}
+</div>
+{% endblock %}

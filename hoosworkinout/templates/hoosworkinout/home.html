@@ -31,12 +31,12 @@
           {% for plan in plans %}
             {%if workout.pid.pid == plan.pid %}
             <li class="list-group-item">
-              <b>Part of Plan:</b> {{plan.name}} 
+              <b>Part of Plan:</b> {{plan.name}}
             </li>
             {% endif %}
           {% endfor %}
           <li class="list-group-item">
-            <a class="btn btn-info" href="{% url 'new-strength-exercise' %}" role="button">View</a>
+            <a class="btn btn-info" href="{% url 'workout-detail' workout.wid %}" role="button">View</a>
             <a class="btn btn-danger" href="{% url 'delete-workout' workout.wid %}" role="button">Delete</a>
           </li>
       </ul>
