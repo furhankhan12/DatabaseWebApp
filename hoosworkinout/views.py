@@ -6,7 +6,6 @@ from .models import Workout, Profile, User, Exercise, Cardio, Strength, Hiit, Pl
 from django.contrib.auth import logout
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponse
 from .resources import WorkoutResource
 
 class WorkoutDetailView(LoginRequiredMixin, ListView):
@@ -288,7 +287,8 @@ class CreatePlanView(LoginRequiredMixin, CreateView):
 #    return response
  
 def export(request):
-    dataset = WorkoutResource().export()
+    queryset = Workout.objects.filter(user = request.user.id)
+    dataset = WorkoutResource().export(queryset)
     response = HttpResponse(dataset.json, content_type='application/json')
     response['Content-Disposition'] = 'attachment; filename="export.json"'
     return response
