@@ -38,6 +38,7 @@ urlpatterns = [
     path('set-location/', views.AddLocationView.as_view(), name='set-location'),
     path('new-location/', views.CreateLocationView.as_view(), name='new-location'),
     path('delete-workout/<int:pk>/', views.DeleteWorkoutView.as_view(), name='delete-workout'),
+    path('delete-exercise/<int:pk>/', views.DeleteExerciseView.as_view(), name='delete-exercise'),
     path('workout-detail/<int:pk>/', views.WorkoutDetailView.as_view(), name='workout-detail'),
     path('new-exercise/', views.CreateExerciseView.as_view(), name='new-exercise'),
     path('new-cardio-exercise/', views.CreateCardioExerciseView.as_view(), name='new-cardio-exercise'),
