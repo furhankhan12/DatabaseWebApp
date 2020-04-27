@@ -285,13 +285,6 @@ class CreatePlanView(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         return reverse('home')
 
-#def export(request):
-#    workouts = Workout.objects.filter(user = self.request.user.id)
-#    workout_list = serializers.serialize('json', workouts, use_natural_foreign_keys=True, use_natural_primary_keys=True)
-#    response = HttpResponse(workout_list, content_type="text/json-comment-filtered")
-#    response['Content-Disposition'] = 'attachment; filename="export.json"'
-#    return response
-
 def export(request):
     queryset = Workout.objects.filter(user = request.user.id)
     dataset = WorkoutResource().export(queryset)
