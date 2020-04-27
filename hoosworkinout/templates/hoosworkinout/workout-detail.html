@@ -117,6 +117,9 @@
             </li>
             {%endif%}
           {%endfor%}
+          <li class="list-group-item">
+            <a class="btn btn-danger" href="{% url 'delete-exercise' exercise.eid %}" role="button">Delete</a>
+          </li>
       </ul>
   </div>
   {% empty %}
