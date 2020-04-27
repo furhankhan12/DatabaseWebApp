@@ -72,7 +72,6 @@ class CreateWorkoutView(LoginRequiredMixin, CreateView):
     model = Workout
     fields = ('pid', 'comment', 'name', 'date')
 
-    #This function automatically associates the new workout with the logged user.
     def form_valid(self, form):
        candidate = form.save(commit=False)
        candidate.user = User.objects.filter(username=self.request.user.username)[0]
