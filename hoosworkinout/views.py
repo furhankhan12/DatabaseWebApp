@@ -1,4 +1,6 @@
 from django.urls import reverse, reverse_lazy
+from django.core import serializers
+from django.http import HttpResponse
 from django.views.generic import CreateView, TemplateView, UpdateView, ListView, DeleteView
 from .models import Workout, Profile, User, Exercise, Cardio, Strength, Hiit, Plan
 from django.contrib.auth import logout
@@ -219,3 +221,16 @@ class CreatePlanView(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         return reverse('home')
+
+def export1(self):
+    if self.method == "GET":
+        workouts = Workout.objects.filter(user = self.request.user.id)
+        workout_list = serializers.serialize('json', workouts)
+        return HttpResponse(workout_list, content_type="text/json-comment-filtered")
+    
+def export2(self):
+    Workout = Workout.objects.filter(user=self.request.user.id)
+    dataset = Workout.export()
+    response = HttpResponse(dataset.json, content_type='application/json')
+    response['Content-Disposition'] = 'attachment; filename="persons.json"'
+    return response
