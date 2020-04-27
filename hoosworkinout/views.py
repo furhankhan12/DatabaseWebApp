@@ -230,16 +230,9 @@ class CreatePlanView(LoginRequiredMixin, CreateView):
 #    response = HttpResponse(workout_list, content_type="text/json-comment-filtered")
 #    response['Content-Disposition'] = 'attachment; filename="export.json"'
 #    return response
-
-# def export2(self):
-#     Workout = Workout.objects.filter(user=self.request.user.id)
-#     dataset = Workout.export()
-#     response = HttpResponse(dataset.json, content_type='application/json')
-#     response['Content-Disposition'] = 'attachment; filename="persons.json"'
-#     return response
-# 
+ 
 def export(request):
     dataset = WorkoutResource().export()
     response = HttpResponse(dataset.json, content_type='application/json')
-    response['Content-Disposition'] = 'attachment; filename="persons.json"'
+    response['Content-Disposition'] = 'attachment; filename="export.json"'
     return response

@@ -5,11 +5,10 @@
     <h1 class="display-4">Welcome, {{ user.get_full_name }}.</h1>
     <p class="lead">Let's get started!</p>
     <hr class="my-4">
-    <a class="btn btn-warning btn-lg" href="{% url 'new-plan' %}" role="button">Create a New Plan</a>
-    <a class="btn btn-primary btn-lg" href="{% url 'new-workout' %}" role="button">Start a new workout</a>
-    <a class="btn btn-danger btn-lg" href="{% url 'new-cardio-exercise' %}" role="button">Add a cardio exercise</a>
-    <a class="btn btn-success btn-lg" href="{% url 'new-strength-exercise' %}" role="button">Add a strength exercise</a>
-    <a class="btn btn-info btn-lg" href="{% url 'new-hiit-exercise' %}" role="button">Add a HIIT exercise</a>
+    <p>Below are your currently logged workouts.</p>
+    <p class="lead">
+      <a class="btn btn-primary btn-lg" href="{% url 'export' %}" role="button">Export Workouts in JSON</a>
+    </p>
 </div>
 
 <div style="display: flex; justify-content: center; flex-wrap: wrap;">
