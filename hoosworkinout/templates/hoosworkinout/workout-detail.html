@@ -30,6 +30,13 @@
             </li>
             {% endif %}
           {% endfor %}
+          {% for plan in plans %}
+            {%if workout.pid.pid == plan.pid %}
+            <li class="list-group-item">
+              <b>Part of Plan:</b> {{plan.name}}
+            </li>
+            {% endif %}
+          {% endfor %}
 
       </ul>
   </div>

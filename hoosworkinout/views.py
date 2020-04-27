@@ -23,6 +23,7 @@ class WorkoutDetailView(LoginRequiredMixin, ListView):
         context['hiits'] = Hiit.objects.all()
         context['reps'] = Reps.objects.all()
         context['locations'] = WorkedOutAt.objects.all()
+        context['plans'] = Plan.objects.filter(user_id= self.request.user.id)
 
         return context
 
