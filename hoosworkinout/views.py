@@ -6,6 +6,8 @@ from .models import Workout, Profile, User, Exercise, Cardio, Strength, Hiit, Pl
 from django.contrib.auth import logout
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponse
+from .resources import WorkoutResource
 
 class WorkoutDetailView(LoginRequiredMixin, ListView):
     model = Workout
@@ -222,15 +224,22 @@ class CreatePlanView(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         return reverse('home')
 
-def export1(self):
-    if self.method == "GET":
-        workouts = Workout.objects.filter(user = self.request.user.id)
-        workout_list = serializers.serialize('json', workouts)
-        return HttpResponse(workout_list, content_type="text/json-comment-filtered")
-    
-def export2(self):
-    Workout = Workout.objects.filter(user=self.request.user.id)
-    dataset = Workout.export()
+#def export(request):
+#    workouts = Workout.objects.filter(user = self.request.user.id)
+#    workout_list = serializers.serialize('json', workouts, use_natural_foreign_keys=True, use_natural_primary_keys=True)
+#    response = HttpResponse(workout_list, content_type="text/json-comment-filtered")
+#    response['Content-Disposition'] = 'attachment; filename="export.json"'
+#    return response
+
+# def export2(self):
+#     Workout = Workout.objects.filter(user=self.request.user.id)
+#     dataset = Workout.export()
+#     response = HttpResponse(dataset.json, content_type='application/json')
+#     response['Content-Disposition'] = 'attachment; filename="persons.json"'
+#     return response
+# 
+def export(request):
+    dataset = WorkoutResource().export()
     response = HttpResponse(dataset.json, content_type='application/json')
     response['Content-Disposition'] = 'attachment; filename="persons.json"'
     return response

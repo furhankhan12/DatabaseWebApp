@@ -30,6 +30,7 @@ urlpatterns = [
     path('', auth_views.LoginView.as_view(), name='login'),
 
     # User views
+    path('export/', views.export, name='export'),
     path('home/', views.HomeView.as_view(), name='home'),
     path('profile/', views.ProfileView.as_view(), name='profile'),
     path('edit-profile/', views.ProfileUpdate.as_view(), name='edit-profile'),

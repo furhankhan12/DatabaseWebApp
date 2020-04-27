@@ -1,6 +1,6 @@
 from django.contrib import admin
 from import_export import resources
-from import_export.admin import ImportExportModelAdmin
+from import_export.admin import ImportExportModelAdmin, ImportMixin
 from .models import User, Profile, Workout, Location, WorkedOutAt, Exercise, Plan, Cardio, Hiit, Strength, Reps
 # Register your models here.
 
@@ -10,12 +10,9 @@ class ProfileAdmin(ImportExportModelAdmin):
 
 @admin.register(Workout)
 class WorkoutAdmin(ImportExportModelAdmin):
-    pass
-
-class WorkoutResource(resources.ModelResource):
     class Meta:
         model = Workout
-        import_id_fields = ('wid')
+        import_id_fields = ['wid']
 
 @admin.register(Location)
 class LocationAdmin(ImportExportModelAdmin):
