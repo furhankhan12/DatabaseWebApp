@@ -10,6 +10,7 @@
     <a class="btn btn-danger btn-lg" href="{% url 'new-cardio-exercise' %}" role="button">Add a cardio exercise</a>
     <a class="btn btn-success btn-lg" href="{% url 'new-strength-exercise' %}" role="button">Add a strength exercise</a>
     <a class="btn btn-info btn-lg" href="{% url 'new-hiit-exercise' %}" role="button">Add a HIIT exercise</a>
+    <a class="btn btn-warning btn-lg" href="{% url 'new-location' %}" role="button">Add a Location</a>
 </div>
 
 <div style="display: flex; justify-content: center; flex-wrap: wrap;">
@@ -32,6 +33,15 @@
             {%if workout.pid.pid == plan.pid %}
             <li class="list-group-item">
               <b>Part of Plan:</b> {{plan.name}}
+            </li>
+            {% endif %}
+          {% endfor %}
+
+          {% for location in locations %}
+            
+            {%if workout.wid == location.wid.wid %}
+            <li class="list-group-item">
+              <b>Location:</b> {{location.lid}}
             </li>
             {% endif %}
           {% endfor %}

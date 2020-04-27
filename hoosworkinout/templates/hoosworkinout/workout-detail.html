@@ -22,6 +22,14 @@
               <b>Comment: </b>{{ workout.comment }}
           </li>
           {% endif %}
+          {% for location in locations %}
+
+            {%if workout.wid == location.wid.wid %}
+            <li class="list-group-item">
+              <b>Location:</b> {{location.lid}}
+            </li>
+            {% endif %}
+          {% endfor %}
 
       </ul>
   </div>
@@ -60,6 +68,7 @@
                 <b>Peak Heartrate: </b>{{ cardio.peak_heartrate}}
             </li>
             {%endif%}
+
           {%endfor%}
           {%for strength in strengths%}
             {% if strength.eid.eid == exercise.eid%}
@@ -72,7 +81,13 @@
             <li class="list-group-item">
                 <b>Category: </b>{{ strength.category}}
             </li>
-
+            {%for rep in reps%}
+              {% if rep.eid.eid == exercise.eid%}
+              <li class="list-group-item">
+                  <b>Reps: </b>{{ rep.numbers}}
+              </li>
+              {%endif%}
+              {%endfor%}
             {%endif%}
           {%endfor%}
 
@@ -93,7 +108,6 @@
             <li class="list-group-item">
                 <b>Rest Interval: </b>{{hiit.rest_interval}}
             </li>
-
             {%endif%}
           {%endfor%}
       </ul>

@@ -59,6 +59,7 @@ class Workout(models.Model):
         db_table = 'workout'
 
 class Location(models.Model):
+    user = models.ForeignKey(User, on_delete = models.CASCADE, db_column='username')
     lid = models.AutoField(primary_key=True)
     name = models.CharField(max_length=50)
     address = models.CharField(max_length=50)
@@ -131,7 +132,7 @@ class Strength(models.Model):
         db_table = 'strength'
 
 class Reps(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     eid = models.ForeignKey(Exercise, on_delete = models.CASCADE, db_column='eid')
     numbers = models.IntegerField()
 
