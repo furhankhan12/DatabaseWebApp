@@ -34,6 +34,15 @@
             </li>
             {% endif %}
           {% endfor %}
+
+          {% for location in locations %}
+            
+            {%if workout.wid == location.wid.wid %}
+            <li class="list-group-item">
+              <b>Location:</b> {{location.lid}}
+            </li>
+            {% endif %}
+          {% endfor %}
           <li class="list-group-item">
             <a class="btn btn-info" href="{% url 'workout-detail' workout.wid %}" role="button">View</a>
             <a class="btn btn-danger" href="{% url 'delete-workout' workout.wid %}" role="button">Delete</a>
