@@ -78,9 +78,9 @@ class WorkedOutAt(models.Model):
     wid = models.ForeignKey(Workout, on_delete = models.CASCADE, db_column='wid')
     lid = models.ForeignKey(Location, on_delete = models.CASCADE, db_column='lid')
 
-
     class Meta:
         db_table = 'worked_out_at'
+
 
 class Exercise(models.Model):
     user = models.ForeignKey(User,  on_delete = models.CASCADE, db_column='username')
@@ -94,8 +94,6 @@ class Exercise(models.Model):
 
     class Meta:
         db_table = 'exercise'
-
-
 
 class Cardio(models.Model):
     eid = models.OneToOneField(Exercise, on_delete = models.CASCADE, db_column='eid', primary_key=True)

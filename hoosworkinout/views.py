@@ -36,8 +36,6 @@ class DeleteExerciseView(LoginRequiredMixin, DeleteView):
     model = Exercise
     success_url = reverse_lazy('home')
 
-
-
 class HomeView(LoginRequiredMixin, ListView):
     model = Workout
     template_name = 'hoosworkinout/home.html'
